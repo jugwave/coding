@@ -25,4 +25,17 @@ def sing_song():
         ("Sesame syrup,", 0.08),
         ("I heard it a long time ago", 0.1)
     ]
-    delays = [0.3, 5.0, 10.0, 14.5, 20.0, 24.
+    delays = [0.3, 5.0, 10.0, 14.5, 20.0, 24.0]
+    
+    threads = []
+    for i in range(len(lyrics)):
+        lyric, speed = lyrics[i]
+        t = Thread(target=sing_lyric, args=(lyric, delays[i], speed))
+        threads.append(t)
+        t.start()
+    
+    for thread in threads:
+        thread.join()
+
+if __name__ == "__main__":
+    sing_song()
